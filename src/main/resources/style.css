@@ -1,0 +1,187 @@
+#button {
+    -fx-padding: 3px 14px;
+    -fx-webkit-box-shadow: rgba(0, 0, 0, 0.701961) 0px 5px 12px;
+    -fx-webkit-transform-origin: 50% 1px;
+    -fx-webkit-transition: all 0.15s ease-in-out;
+    -fx-background:  #161616;
+    -fx-border-color: rgba(255, 255, 255, 0.027451) #FF8C39 rgba(255, 255, 255, 0.027451) rgba(255, 255, 255, 0.027451);
+    -fx-border-style: solid;
+    -fx-border-width: 1px 4px 1px 1px;
+    -fx-box-shadow: rgba(0, 0, 0, 0.701961) 0px 5px 12px;
+    -fx-color: #555;
+    -fx-display:block;
+    -fx-width:90px;
+    -fx-font-family: Open Sans, Sans-serif;
+    -fx-border-radius: 5px;
+    -fx-font-size: 16px;
+    -fx-letter-spacing: 4px;
+    -fx-text-shadow: rgb(0, 0, 0) 0px 1px 1px;
+    -fx-line-height: 30px;
+    -fx-position: relative;
+    -fx-text-align: center;
+    -fx-text-decoration:none;
+}
+#button:hover {
+    -fx-cursor: pointer;
+    -fx-opacity: 0.9;
+    -fx-border-width: 1px 7px 1px 1px;
+}
+#button:pressed {
+    -fx-background-color: #b42f32;
+    -fx-border-color: #1c1c1c #202020 #222;
+    -fx-webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.09);
+    -fx-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.09);
+
+}
+#buttonAddTask:hover {
+    -fx-cursor: pointer;
+    -fx-opacity: 0.9;
+    -fx-border-width: 1px 7px 1px 1px;
+}
+#buttonAddTask {
+    -fx-height: 80px;
+    -fx-line-height: 80px;
+    -fx-width: 80px;
+    -fx-font-size: 2em;
+    -fx-font-weight: bold;
+    -fx-border-radius: 100%;
+    -fx-background-color: #4CAF50;
+    -fx-color: white;
+    -fx-text-align: center;
+    -fx-cursor: pointer;
+}
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);
+    -fx-text-fill: white;
+}
+
+.list-cell:even { /* <=== changed to even */
+    -fx-background-color: white;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #0093ff;
+    -fx-text-fill: white;
+}
+.list-cell{
+    -fx-font-size: 20px;
+    -fx-border-color: Black;
+    -fx-border-radius: 2px;
+    -fx-row-valignment: 20px;
+}
+.completeTask-button {
+    -fx-background-color: #00FF7F;
+    -fx-color: white;
+    -fx-height: 50px;
+    -fx-width: 100px;
+    -fx-text-shadow: none;
+    -fx-border-color: black;
+}
+.completeTask-button:hover {
+   -fx-background-color: #016ABC;
+    -fx-color: #fff;
+    -fx-text-shadow: none;
+}
+.completeTask-button:pressed {
+    -fx-background-color: #0189bc;
+    -fx-text-shadow: none;
+
+}
+.removeTask-button{
+    -fx-background-color: #ee1111;
+    -fx-color: #fff;
+    -fx-height: 50px;
+    -fx-width: 100px;
+    -fx-font-family: sans-serif;
+    -fx-text-shadow: none;
+    -fx-border-color: black;
+}
+.removeTask-button:hover {
+    -fx-background-color: #016ABC;
+    -fx-color: #fff;
+    -fx-text-shadow: none;
+}
+.removeTask-button:pressed {
+    -fx-background-color: #0189bc;
+    -fx-text-shadow: none;
+
+}
+.editTask-button{
+    -fx-background-color: #CEFF1D;
+    -fx-color: #fff;
+    -fx-height: 50px;
+    -fx-width: 100px;
+    -fx-text-shadow: none;
+    -fx-border-color: black;
+
+
+}
+.editTask-button:hover {
+    -fx-background-color: #016ABC;
+    -fx-color: #fff;
+    -fx-text-shadow: none;
+}
+.editTask-button:pressed {
+    -fx-background-color: #0189bc;
+    -fx-text-shadow: none;
+
+}
+.addTask-button{
+    -fx-background-color: #00FFFF;
+    -fx-color: #fff;
+    -fx-height: 50px;
+    -fx-width: 100px;
+    -fx-text-shadow: none;
+    -fx-border-color: black;
+
+
+}
+.addTask-button:hover {
+    -fx-background-color: #016ABC;
+    -fx-color: #fff;
+    -fx-text-shadow: none;
+}
+.addTask-button:pressed {
+    -fx-background-color: #0189bc;
+    -fx-text-shadow: none;
+
+}
+.split-menu-button {
+    -fx-background:  #161616;
+    -fx-border-color: rgba(255, 255, 255, 0.027451) #FF8C39 rgba(255, 255, 255, 0.027451) rgba(255, 255, 255, 0.027451);
+    -fx-border-style: solid;
+    -fx-border-width: 1px 4px 1px 1px;
+    -fx-text-fill: white;
+    -fx-font-family: Open Sans, Sans-serif;
+    -fx-border-radius: 5px;
+    -fx-font-size: 16px;
+    -fx-letter-spacing: 4px;
+    -fx-text-shadow: rgb(0, 0, 0) 0px 1px 1px;
+    -fx-line-height: 30px;
+    -fx-text-alignment: center;
+}
+
+.split-menu-button:hover {
+    -fx-cursor: pointer;
+    -fx-opacity: 0.9;
+    -fx-border-width: 1px 7px 1px 1px;
+}
+
+.split-menu-button:pressed {
+    -fx-background-color: #b42f32;
+    -fx-border-color: #1c1c1c #202020 #222;
+    -fx-webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.09);
+    -fx-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.09);
+}
+
+.split-menu-button .label {
+    -fx-padding: 3px 14px;
+    -fx-color: #555;
+    -fx-text-fill: white;
+}
+.split-menu-button .menu-item .label {
+    -fx-padding: 3px 14px;
+    -fx-color: black;
+    -fx-text-fill: black;
+}
+
