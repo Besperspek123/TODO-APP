@@ -7,13 +7,20 @@
 
 This is a To Do List application that allows you to add the necessary tasks to the list and monitor them. All this is implemented in conjunction with the user database, which allows you to create an account in the application and enter separate tasks from each account.
 
-## Documentation
 
-Documentation Here
+## Screenshots
 
-## Distribute
+<p align="center">
+      <img src="https://i.ibb.co/qyhGv3x/imgonline-com-ua-Frame-colored-4-Zn-D9-TZs-Ng-IC8.jpg" width="726">
+</p>
 
-- [Service Name](Page Link)
+<p align="center">
+      <img src="https://i.ibb.co/QJR1Ppq/imgonline-com-ua-Frame-colored-t-Jc-L3-Zl-CIXe-Mk-I.jpg" width="726">
+</p>
+
+<p align="center"> 
+      <img src="https://i.ibb.co/bFFLPmk/imgonline-com-ua-Frame-colored-UCzt-Cfe-VP6qp-Rx-OI.jpg" width="726">
+</p>
 
 
 ## Developers
