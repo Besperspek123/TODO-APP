@@ -18,7 +18,7 @@ Documentation Here
 
 ## Developers
 
-- [Besperspek123](https://github.com/Besperspek123)
+- [Nosov Daniil](https://github.com/Besperspek123)
 
 ## License
 
