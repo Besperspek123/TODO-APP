@@ -27,6 +27,10 @@ This is a To Do List application that allows you to add the necessary tasks to t
 
 - [Nosov Daniil](https://github.com/Besperspek123)
 
+## How Use
+
+There is a ToDo List App folder in the project folder . It has an executable file ToDoList.exe . You can run it, but pay attention. It requires java installed on your PC to work.
+
 ## License
 
 Project ToDoList is distributed under the MIT license.
