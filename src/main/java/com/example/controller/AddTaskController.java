@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.Exceptions.EmptyTaskException;
 import com.example.Hibernate.HibernateSessionFactory;
 import com.example.ObjectsDataBase.CurrentTask;
+import com.example.controller.constantsNotification.ErrorConstants;
 import com.example.javafxFxmlLoader.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,7 +36,7 @@ public class AddTaskController {
 
                 CurrentTask currentTask = new CurrentTask(Task.getText(),
                         DescriptionTask.getText(),
-                        LoginContoller.getCurrentUserLogin());
+                        LoginController.getCurrentUserLogin());
 
                 if (Task.getText().isEmpty()){
                     throw new EmptyTaskException("The User is trying to save an empty Task");
@@ -48,7 +49,7 @@ public class AddTaskController {
             }
             catch (EmptyTaskException e){
                 System.out.println(e.getMessage());
-                SceneSwitcher.SceneSwitcher("/DeniedSaveEmptyTask.fxml");
+                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_SAVE_EMPTY_TASK);
             }
             finally {
                 if (sessionSaveNewTask != null && sessionSaveNewTask.isOpen()) {

@@ -5,17 +5,17 @@ import com.example.Exceptions.InvalidCharactersException;
 import com.example.Exceptions.LoginOrPasswordTooLongException;
 import com.example.Hibernate.HibernateSessionFactory;
 import com.example.ObjectsDataBase.User;
+import com.example.controller.constantsNotification.ErrorConstants;
+import com.example.controller.constantsNotification.SuccessfulConstants;
 import com.example.javafxFxmlLoader.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SignUpController {
@@ -54,7 +54,7 @@ public class SignUpController {
         RegisterButton.setOnAction(actionEvent -> {
 
             try {
-                if(LoginUsername.getText().length() > 25 && LoginPassword.getText().length() > 20){
+                if(LoginUsername.getText().length() > 25 || LoginPassword.getText().length() > 20){
                     throw new LoginOrPasswordTooLongException("User are trying to enter " +
                             "a username or password that is too long. " +
                             "The login must not be longer than 25 characters, " +
@@ -70,24 +70,24 @@ public class SignUpController {
                 if (!isUserExist()){
                     registerUser();
                     RegisterButton.getScene().getWindow().hide();
-                    Stage LoginStage = SceneSwitcher.SceneSwitcher("/Login.fxml");
-                    Stage SuccessfulSignUp = SceneSwitcher.SceneSwitcher("/SuccessfulSignUp.fxml");
+                    SceneSwitcher.SceneSwitcher("/Login.fxml");
+                    SceneSwitcher.showInputSuccessfulNotification(SuccessfulConstants.SUCCESSFUL_SIGN_UP);
                 }
                 else {
-                    Stage DeniedSignUp = SceneSwitcher.SceneSwitcher("/DeniedSignUp.fxml");
+                    SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_SIGN_UP_ACCOUNT_ALREADY_EXIST);
                 }
             }
             catch (EmptyCredentialsException e){
                 System.out.println(e.getMessage());
-                SceneSwitcher.SceneSwitcher("/DeniedLoginOrSignUpEmptyLoginOrPassword.fxml");
+                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_LOGIN_OR_SIGNUP_EMPTY_LOGIN_OR_PASSWORD);
             }
             catch (InvalidCharactersException e){
                 System.out.println(e.getMessage());
-                SceneSwitcher.SceneSwitcher("/DeniedSignUpInvalidCharactersException.fxml");
+                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_SIGN_UP_INVALID_CHARACTERS);
             }
             catch (LoginOrPasswordTooLongException e){
                 System.out.println(e.getMessage());
-                SceneSwitcher.SceneSwitcher("/DeniedSignUpToLoongCharacters.fxml");
+                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_SIGN_UP_TO_LOONG_CHARACTERS);
             }
         });
 
@@ -110,7 +110,7 @@ public class SignUpController {
 
     public boolean isUserExist(){
         Session sessionIsUserExist = null;
-        List<User> usersForQuery = new ArrayList<>();
+        List<User> usersForQuery;
         try {
             sessionIsUserExist = HibernateSessionFactory.getCurrentSessionUser();
             sessionIsUserExist.beginTransaction();

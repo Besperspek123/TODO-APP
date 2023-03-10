@@ -4,6 +4,8 @@ import com.example.Exceptions.EmptyCredentialsException;
 import com.example.Exceptions.UserNotFoundException;
 import com.example.Hibernate.HibernateSessionFactory;
 import com.example.ObjectsDataBase.User;
+import com.example.controller.constantsNotification.ErrorConstants;
+import com.example.controller.constantsNotification.SuccessfulConstants;
 import com.example.javafxFxmlLoader.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,24 +15,15 @@ import javafx.scene.input.KeyCode;
 import org.hibernate.Session;
 
 import javax.persistence.Query;
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class LoginContoller {
+public class LoginController {
 
     private static User currentLoginUser;
 
     public static String getCurrentUserLogin() {
         return currentLoginUser.getLoginUsername();
     }
-
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
 
     @FXML
     private Button LoginButton;
@@ -91,7 +84,7 @@ public class LoginContoller {
                 sessionDeleteAllCompletedTaskFromAllUser.getTransaction().commit();
 
                 System.out.println("All users have been deleted");
-                SceneSwitcher.SceneSwitcher("/SuccessfulDeleteAllUser.fxml");
+                SceneSwitcher.showInputSuccessfulNotification(SuccessfulConstants.SUCCESSFUL_DELETE_ALL_USER);
 
             } finally {
                 if (sessionDeleteAllTaskFromAllUser != null && sessionDeleteAllUsers.isOpen()) {
@@ -149,12 +142,12 @@ public class LoginContoller {
                 }
             } catch (UserNotFoundException e) {
                 System.out.println(e.getMessage());
-                SceneSwitcher.SceneSwitcher("/DeniedLogin.fxml");
+                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_LOGIN_OR_PASSWORD_INCORRECT);
 
             }
             catch (EmptyCredentialsException e){
                 System.out.println(e.getMessage());
-                SceneSwitcher.SceneSwitcher("/DeniedLoginOrSignUpEmptyLoginOrPassword.fxml");
+                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_LOGIN_OR_SIGNUP_EMPTY_LOGIN_OR_PASSWORD);
             }finally {
                 if (sessionLoginUser != null && sessionLoginUser.isOpen()) {
                     sessionLoginUser.close();

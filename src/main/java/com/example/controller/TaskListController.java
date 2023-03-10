@@ -13,9 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import org.hibernate.Session;
-import java.sql.*;
 
 import javax.persistence.Query;
 
@@ -99,7 +97,7 @@ public class TaskListController {
 
             String sqlQuery = "from CompletedTask where user =:user";
             Query completedTasksForCurrentUser = sessionGetCompletedTasks.createQuery(sqlQuery);
-            completedTasksForCurrentUser.setParameter("user", LoginContoller.getCurrentUserLogin());
+            completedTasksForCurrentUser.setParameter("user", LoginController.getCurrentUserLogin());
 
             completedTaskListForCurrentUser = completedTasksForCurrentUser.getResultList();
 
@@ -180,7 +178,7 @@ public class TaskListController {
 
             String sqlQuery = "from CurrentTask where user =:user";
             Query tasksForCurrentUser = sessionGetCurrentTasks.createQuery(sqlQuery);
-            tasksForCurrentUser.setParameter("user", LoginContoller.getCurrentUserLogin());
+            tasksForCurrentUser.setParameter("user", LoginController.getCurrentUserLogin());
 
             currentTaskListForCurrentUser = tasksForCurrentUser.getResultList();
 
@@ -266,7 +264,7 @@ public class TaskListController {
                 String sqlQueryDeleteTask = "from CurrentTask where task =:task and user=:currentUser";
                 Query tasksForCurrentUser = sessionCompletedOrCurrentRemoveTask.createQuery(sqlQueryDeleteTask);
                 tasksForCurrentUser.setParameter("task", selectedItem);
-                tasksForCurrentUser.setParameter("currentUser", LoginContoller.getCurrentUserLogin());
+                tasksForCurrentUser.setParameter("currentUser", LoginController.getCurrentUserLogin());
                 List<CurrentTask> currentTaskForDelete = tasksForCurrentUser.getResultList();
                 System.out.println(currentTaskForDelete.toString());
                 for (CurrentTask currentTask : currentTaskForDelete
@@ -284,7 +282,7 @@ public class TaskListController {
                 String sqlQueryDeleteTask = "from CompletedTask where task =:task and user=:currentUser";
                 Query tasksForCurrentUser = sessionCompletedOrCurrentRemoveTask.createQuery(sqlQueryDeleteTask);
                 tasksForCurrentUser.setParameter("task", selectedItem);
-                tasksForCurrentUser.setParameter("currentUser", LoginContoller.getCurrentUserLogin());
+                tasksForCurrentUser.setParameter("currentUser", LoginController.getCurrentUserLogin());
                 List<CompletedTask> currentTaskForDelete = tasksForCurrentUser.getResultList();
                 System.out.println(currentTaskForDelete.toString());
                 for (CompletedTask currentTask : currentTaskForDelete
@@ -318,7 +316,7 @@ public class TaskListController {
             String sqlQueryCompletedTask = "from CurrentTask where task =:task and user=:currentUser";
             Query tasksForCurrentUser = sessionGetAndDeleteCurrentTaskForAddToCompletedTasks.createQuery(sqlQueryCompletedTask);
             tasksForCurrentUser.setParameter("task", selectedItem);
-            tasksForCurrentUser.setParameter("currentUser", LoginContoller.getCurrentUserLogin());
+            tasksForCurrentUser.setParameter("currentUser", LoginController.getCurrentUserLogin());
             currentTaskForAddCompleted = tasksForCurrentUser.getResultList();
             for (CurrentTask currentTask : currentTaskForAddCompleted
             ) {
@@ -377,7 +375,7 @@ public class TaskListController {
 
             Query tasksForCurrentUser = sessionGetDescriptionTask.createQuery(sqlQueryDeleteTask);
             tasksForCurrentUser.setParameter("task", selectedItem);
-            tasksForCurrentUser.setParameter("currentUser", LoginContoller.getCurrentUserLogin());
+            tasksForCurrentUser.setParameter("currentUser", LoginController.getCurrentUserLogin());
             String Description = "";
             if(ListViewCurrentTasks.isVisible()){
                 List<CurrentTask> currentTaskForDelete = tasksForCurrentUser.getResultList();
