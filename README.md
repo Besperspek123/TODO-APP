@@ -29,7 +29,11 @@ This is a To Do List application that allows you to add the necessary tasks to t
 
 ## How Use
 
-There is a ToDo List App folder in the project folder . It has an executable file ToDoList.exe . You can run it or run java file, but pay attention. It requires java installed on your PC to work.
+You can clone this repository and run it in your IDE (Inteljidea or Netbins) or download installator for this application follow the link bellow.
+
+## Download Application
+
+- Link for Download: [Yandex.Disk](https://disk.yandex.ru/d/4bz7tVizqqhXlg) [Mail.Ru](https://cloud.mail.ru/public/nBKA/ujDuXjQ5a)
 
 ## License
 
