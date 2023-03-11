@@ -33,7 +33,7 @@ You can clone this repository and run it in your IDE (Inteljidea or Netbins) or 
 
 ## Download Application
 
-- Link for Download: [Yandex.Disk](https://disk.yandex.ru/d/4bz7tVizqqhXlg) [Mail.Ru](https://cloud.mail.ru/public/nBKA/ujDuXjQ5a)
+- Link for Download: [Yandex.Disk](https://disk.yandex.ru/d/4bz7tVizqqhXlg) | [Mail.Ru](https://cloud.mail.ru/public/nBKA/ujDuXjQ5a)
 
 ## License
 
