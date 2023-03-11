@@ -23,8 +23,19 @@ public class AddTaskController {
     private Button buttonSaveTask;
 
     @FXML
+    private Button buttonBack;
+
+    @FXML
     void initialize() {
         setupAddTaskButton();
+        setupBackButton();
+    }
+
+    private void setupBackButton() {
+        buttonBack.setOnAction(actionEvent -> {
+            buttonBack.getScene().getWindow().hide();
+            SceneSwitcher.SceneSwitcher("/TaskList.fxml");
+        });
     }
 
     public void setupAddTaskButton(){
