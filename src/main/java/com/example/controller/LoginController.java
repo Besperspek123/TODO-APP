@@ -116,7 +116,7 @@ public class LoginController {
     }
 
 
-    public void deleteUsersAndTasksInDataBase() {
+    private void deleteUsersAndTasksInDataBase() {
         Session sessionDeleteAllUsers = null;
 
         try {

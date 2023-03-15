@@ -33,10 +33,7 @@ public class AddTaskController {
     }
 
 
-
-
-
-    public void setupAddTaskButton(){
+    private void setupAddTaskButton(){
         buttonSaveTask.setOnAction(actionEvent -> {
             Session sessionSaveNewTask = null;
             try {

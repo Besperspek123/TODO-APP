@@ -43,7 +43,7 @@ public class SignUpController {
 }
 
 
-    public void setupBackToLoginPageButton (){
+    private void setupBackToLoginPageButton (){
         backToLoginPageButton.setOnAction(actionEvent -> {
 
             backToLoginPageButton.getScene().getWindow().hide();
@@ -51,7 +51,7 @@ public class SignUpController {
 
         });
     }
-    public void setupRegisterButton(){
+    private void setupRegisterButton(){
         registerButton.setOnAction(actionEvent -> {
 
             try {
@@ -97,7 +97,7 @@ public class SignUpController {
 
     }
 
-    public boolean checkUserCredentials(){
+    private boolean checkUserCredentials(){
         Session sessionIsUserExist = null;
         List<User> usersForQuery;
         try {
@@ -119,7 +119,7 @@ public class SignUpController {
         return usersForQuery.isEmpty() ? false :true;
     }
 
-    public void registerUser(){
+    private void registerUser(){
         Session sessionSaveUser = null;
         try {
             sessionSaveUser = HibernateSessionFactory.getCurrentSessionUser();
