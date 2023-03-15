@@ -4,7 +4,7 @@ import com.example.exceptions.EmptyCredentialsException;
 import com.example.exceptions.InvalidCharactersException;
 import com.example.exceptions.LoginOrPasswordTooLongException;
 import com.example.hibernate.HibernateSessionFactory;
-import com.example.objectsDataBase.User;
+import com.example.entitiesDatabase.User;
 import com.example.controller.constantsNotification.ErrorConstants;
 import com.example.controller.constantsNotification.SuccessfulConstants;
 import com.example.javafxFxmlLoader.JavaFx;

@@ -2,7 +2,7 @@ package com.example.controller;
 
 import com.example.exceptions.EmptyTaskException;
 import com.example.hibernate.HibernateSessionFactory;
-import com.example.objectsDataBase.CurrentTask;
+import com.example.entitiesDatabase.CurrentTask;
 import com.example.controller.constantsNotification.ErrorConstants;
 import com.example.javafxFxmlLoader.JavaFx;
 import javafx.fxml.FXML;

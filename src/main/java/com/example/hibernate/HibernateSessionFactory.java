@@ -1,8 +1,8 @@
 package com.example.hibernate;
 
-import com.example.objectsDataBase.CompletedTask;
-import com.example.objectsDataBase.CurrentTask;
-import com.example.objectsDataBase.User;
+import com.example.entitiesDatabase.CompletedTask;
+import com.example.entitiesDatabase.CurrentTask;
+import com.example.entitiesDatabase.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.hibernate.HibernateSessionFactory;
-import com.example.objectsDataBase.CompletedTask;
-import com.example.objectsDataBase.CurrentTask;
+import com.example.entitiesDatabase.CompletedTask;
+import com.example.entitiesDatabase.CurrentTask;
 import com.example.javafxFxmlLoader.JavaFx;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
