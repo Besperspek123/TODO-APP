@@ -3,10 +3,10 @@ package com.example.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.Hibernate.HibernateSessionFactory;
-import com.example.ObjectsDataBase.CompletedTask;
-import com.example.ObjectsDataBase.CurrentTask;
-import com.example.javafxFxmlLoader.SceneSwitcher;
+import com.example.hibernate.HibernateSessionFactory;
+import com.example.objectsDataBase.CompletedTask;
+import com.example.objectsDataBase.CurrentTask;
+import com.example.javafxFxmlLoader.JavaFx;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -27,7 +27,7 @@ public class TaskListController {
        return currentTaskDescription;
     }
     @FXML
-    private Text TextUnderButtonAddTask;
+    private Text textUnderButtonAddTask;
 
     @FXML
     private AnchorPane panelButtonTask;
@@ -39,13 +39,13 @@ public class TaskListController {
     private ImageView addFirstTaskButton;
 
     @FXML
-    private SplitMenuButton changeTaskListButtonMenu;
+    private SplitMenuButton changeTaskListMenuButton;
 
     @FXML
-    private MenuItem changeToCompletedTasks;
+    private MenuItem changeToCompletedTasksList;
 
     @FXML
-    private MenuItem changeToCurrentTasks;
+    private MenuItem changeToCurrentTasksList;
 
     @FXML
     private Button completeTaskButton;
@@ -60,10 +60,10 @@ public class TaskListController {
     private Button addTaskButton;
 
     @FXML
-    private ListView<String> ListViewCurrentTasks;
+    private ListView<String> listViewCurrentTasks;
 
     @FXML
-    private ListView<String> ListViewCompletedTasks;
+    private ListView<String> listViewCompletedTasks;
 
 
 
@@ -114,35 +114,35 @@ public class TaskListController {
 
         for (CompletedTask CompletedTask : completedTaskListForCurrentUser
         ) {
-            ListViewCompletedTasks.getItems().add(CompletedTask.getTask());
+            listViewCompletedTasks.getItems().add(CompletedTask.getTask());
         }
 
     }
 
     private void setupChangeTypeTasksButton() {
-        changeToCurrentTasks.setOnAction(actionEvent -> {
+        changeToCurrentTasksList.setOnAction(actionEvent -> {
 
-            if(ListViewCurrentTasks.getItems().isEmpty()){
+            if(listViewCurrentTasks.getItems().isEmpty()){
                 addFirstTaskButton.setVisible(true);
-                TextUnderButtonAddTask.setVisible(true);
+                textUnderButtonAddTask.setVisible(true);
             }
             completeTaskButton.setDisable(false);
-            ListViewCurrentTasks.setVisible(true);
-            ListViewCompletedTasks.setVisible(false);
-            changeTaskListButtonMenu.setText("Current Tasks");
+            listViewCurrentTasks.setVisible(true);
+            listViewCompletedTasks.setVisible(false);
+            changeTaskListMenuButton.setText("Current Tasks");
 
         });
-        changeToCompletedTasks.setOnAction(actionEvent -> {
-            if(!ListViewCompletedTasks.getItems().isEmpty()){
+        changeToCompletedTasksList.setOnAction(actionEvent -> {
+            if(!listViewCompletedTasks.getItems().isEmpty()){
                 addFirstTaskButton.setVisible(false);
-                TextUnderButtonAddTask.setVisible(false);
+                textUnderButtonAddTask.setVisible(false);
                 panelButtonTask.setVisible(true);
                 addTaskButton.setVisible(true);
             }
             completeTaskButton.setDisable(true);
-            ListViewCurrentTasks.setVisible(false);
-            ListViewCompletedTasks.setVisible(true);
-            changeTaskListButtonMenu.setText("Completed Tasks");
+            listViewCurrentTasks.setVisible(false);
+            listViewCompletedTasks.setVisible(true);
+            changeTaskListMenuButton.setText("Completed Tasks");
         });
     }
 
@@ -165,7 +165,7 @@ public class TaskListController {
 
         descriptionTaskButton.setOnAction(actionEvent -> {
             currentTaskDescription = getDescriptionTaskText();
-            SceneSwitcher.SceneSwitcher("/DescriptionTask.fxml");
+            JavaFx.SceneSwitcher("/DescriptionTask.fxml");
         });
 
     }
@@ -193,7 +193,7 @@ public class TaskListController {
     private void setupBackToLoginButton() {
         backToLoginMenu.setOnAction(actionEvent -> {
             backToLoginMenu.getScene().getWindow().hide();
-            SceneSwitcher.SceneSwitcher("/Login.fxml");
+            JavaFx.SceneSwitcher("/Login.fxml");
         });
     }
 
@@ -201,17 +201,17 @@ public class TaskListController {
         addTaskButton.setVisible(false);
         for (CurrentTask currentTask : currentTaskListForCurrentUser
         ) {
-            ListViewCurrentTasks.getItems().add(currentTask.getTask());
+            listViewCurrentTasks.getItems().add(currentTask.getTask());
         }
 
         if (currentTaskListForCurrentUser.isEmpty()) {
             panelButtonTask.setVisible(false);
-            ListViewCurrentTasks.setVisible(false);
-            ListViewCompletedTasks.setVisible(false);
+            listViewCurrentTasks.setVisible(false);
+            listViewCompletedTasks.setVisible(false);
         } else {
             addFirstTaskButton.setVisible(false);
-            TextUnderButtonAddTask.setVisible(false);
-            ListViewCurrentTasks.setVisible(true);
+            textUnderButtonAddTask.setVisible(false);
+            listViewCurrentTasks.setVisible(true);
             addTaskButton.setVisible(true);
         }
     }
@@ -237,8 +237,8 @@ public class TaskListController {
 
             switchToAddTaskStage();
             addFirstTaskButton.setVisible(false);
-            TextUnderButtonAddTask.setVisible(false);
-            ListViewCurrentTasks.setVisible(true);
+            textUnderButtonAddTask.setVisible(false);
+            listViewCurrentTasks.setVisible(true);
             addTaskButton.setVisible(true);
 
 
@@ -249,7 +249,7 @@ public class TaskListController {
 
     public void switchToAddTaskStage() {
         addFirstTaskButton.getScene().getWindow().hide();
-        SceneSwitcher.SceneSwitcher("/AddTask.fxml");
+        JavaFx.SceneSwitcher("/AddTask.fxml");
     }
 
     public void removeTask() {
@@ -257,10 +257,10 @@ public class TaskListController {
         Session sessionCompletedOrCurrentRemoveTask = null;
         try {
 
-            if (ListViewCurrentTasks.isVisible()){
+            if (listViewCurrentTasks.isVisible()){
                 sessionCompletedOrCurrentRemoveTask = HibernateSessionFactory.getCurrentSessionCurrentTask();
                 sessionCompletedOrCurrentRemoveTask.beginTransaction();
-                String selectedItem = ListViewCurrentTasks.getSelectionModel().getSelectedItem();
+                String selectedItem = listViewCurrentTasks.getSelectionModel().getSelectedItem();
                 String sqlQueryDeleteTask = "from CurrentTask where task =:task and user=:currentUser";
                 Query tasksForCurrentUser = sessionCompletedOrCurrentRemoveTask.createQuery(sqlQueryDeleteTask);
                 tasksForCurrentUser.setParameter("task", selectedItem);
@@ -273,12 +273,12 @@ public class TaskListController {
                 }
                 sessionCompletedOrCurrentRemoveTask.getTransaction().commit();
 
-                ListViewCurrentTasks.getItems().remove(selectedItem);
+                listViewCurrentTasks.getItems().remove(selectedItem);
             }
             else {
                 sessionCompletedOrCurrentRemoveTask = HibernateSessionFactory.getCurrentSessionCompletedTask();
                 sessionCompletedOrCurrentRemoveTask.beginTransaction();
-                String selectedItem = ListViewCompletedTasks.getSelectionModel().getSelectedItem();
+                String selectedItem = listViewCompletedTasks.getSelectionModel().getSelectedItem();
                 String sqlQueryDeleteTask = "from CompletedTask where task =:task and user=:currentUser";
                 Query tasksForCurrentUser = sessionCompletedOrCurrentRemoveTask.createQuery(sqlQueryDeleteTask);
                 tasksForCurrentUser.setParameter("task", selectedItem);
@@ -291,7 +291,7 @@ public class TaskListController {
                 }
                 sessionCompletedOrCurrentRemoveTask.getTransaction().commit();
 
-                ListViewCompletedTasks.getItems().remove(selectedItem);
+                listViewCompletedTasks.getItems().remove(selectedItem);
             }
 
 
@@ -312,7 +312,7 @@ public class TaskListController {
         try {
             sessionGetAndDeleteCurrentTaskForAddToCompletedTasks = HibernateSessionFactory.getCurrentSessionCurrentTask();
             sessionGetAndDeleteCurrentTaskForAddToCompletedTasks.beginTransaction();
-            String selectedItem = ListViewCurrentTasks.getSelectionModel().getSelectedItem();
+            String selectedItem = listViewCurrentTasks.getSelectionModel().getSelectedItem();
             String sqlQueryCompletedTask = "from CurrentTask where task =:task and user=:currentUser";
             Query tasksForCurrentUser = sessionGetAndDeleteCurrentTaskForAddToCompletedTasks.createQuery(sqlQueryCompletedTask);
             tasksForCurrentUser.setParameter("task", selectedItem);
@@ -321,8 +321,8 @@ public class TaskListController {
             for (CurrentTask currentTask : currentTaskForAddCompleted
             ) {
                 sessionGetAndDeleteCurrentTaskForAddToCompletedTasks.remove(currentTask);
-                ListViewCompletedTasks.getItems().add(currentTask.getTask());
-                ListViewCurrentTasks.getItems().remove(currentTask.getTask());
+                listViewCompletedTasks.getItems().add(currentTask.getTask());
+                listViewCurrentTasks.getItems().remove(currentTask.getTask());
             }
             sessionGetAndDeleteCurrentTaskForAddToCompletedTasks.getTransaction().commit();
         }
@@ -358,26 +358,26 @@ public class TaskListController {
 
         Session sessionGetDescriptionTask = null;
         try {
-                if(ListViewCurrentTasks.isVisible()){
+                if(listViewCurrentTasks.isVisible()){
                     sessionGetDescriptionTask = HibernateSessionFactory.getCurrentSessionCurrentTask();
                 }
                 else sessionGetDescriptionTask = HibernateSessionFactory.getCurrentSessionCompletedTask();
             sessionGetDescriptionTask.beginTransaction();
             String selectedItem = null;
             String sqlQueryDeleteTask = null;
-            if(ListViewCurrentTasks.isVisible()){
-               selectedItem =  ListViewCurrentTasks.getSelectionModel().getSelectedItem();
+            if(listViewCurrentTasks.isVisible()){
+               selectedItem =  listViewCurrentTasks.getSelectionModel().getSelectedItem();
                 sqlQueryDeleteTask = "from CurrentTask where task =:task and user=:currentUser";
             }
             else {
-                selectedItem = ListViewCompletedTasks.getSelectionModel().getSelectedItem();
+                selectedItem = listViewCompletedTasks.getSelectionModel().getSelectedItem();
                 sqlQueryDeleteTask = "from CompletedTask where task =:task and user=:currentUser";}
 
             Query tasksForCurrentUser = sessionGetDescriptionTask.createQuery(sqlQueryDeleteTask);
             tasksForCurrentUser.setParameter("task", selectedItem);
             tasksForCurrentUser.setParameter("currentUser", LoginController.getCurrentUserLogin());
             String Description = "";
-            if(ListViewCurrentTasks.isVisible()){
+            if(listViewCurrentTasks.isVisible()){
                 List<CurrentTask> currentTaskForDelete = tasksForCurrentUser.getResultList();
                 Description = currentTaskForDelete.get(0).getDescription();
 

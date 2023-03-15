@@ -8,18 +8,18 @@
    <children>
       <AnchorPane layoutY="41.0" prefHeight="221.0" prefWidth="536.0" style="-fx-background-color: White;">
          <children>
-            <TextField fx:id="Task" layoutX="121.0" layoutY="33.0" prefHeight="42.0" prefWidth="294.0" promptText="Task" style="-fx-border-color: FF8E72;" stylesheets="@style.css">
+            <TextField fx:id="task" layoutX="121.0" layoutY="33.0" prefHeight="42.0" prefWidth="294.0" promptText="Task" style="-fx-border-color: FF8E72;" stylesheets="@Style.css">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <TextField fx:id="DescriptionTask" layoutX="121.0" layoutY="93.0" prefHeight="42.0" prefWidth="294.0" promptText="Description" style="-fx-border-color: FF8E72;">
+            <TextField fx:id="descriptionTask" layoutX="121.0" layoutY="93.0" prefHeight="42.0" prefWidth="294.0" promptText="Description" style="-fx-border-color: FF8E72;">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <Button id="button" fx:id="buttonSaveTask" layoutX="122.0" layoutY="155.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="119.0" stylesheets="@style.css" text="Save Task" />
-            <Button id="button" fx:id="buttonBack" layoutX="296.0" layoutY="155.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="119.0" stylesheets="@style.css" text="Back" />
+            <Button id="button" fx:id="buttonSaveTask" layoutX="122.0" layoutY="155.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="119.0" stylesheets="@Style.css" text="Save Task" />
+            <Button id="button" fx:id="buttonBack" layoutX="296.0" layoutY="155.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="119.0" stylesheets="@Style.css" text="Back" />
          </children>
       </AnchorPane>
       <Text fill="WHITE" layoutX="171.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADD YOUR TASK" wrappingWidth="193.873046875">

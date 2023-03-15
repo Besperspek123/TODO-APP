@@ -17,16 +17,16 @@
       </ImageView>
       <AnchorPane layoutY="69.0" prefHeight="267.0" prefWidth="700.0" style="-fx-background-color: ffffff;">
          <children>
-            <TextField id="LogginUsername" fx:id="LoginUsername" layoutX="223.0" layoutY="86.0" prefHeight="41.0" prefWidth="254.0" promptText="login" style="-fx-border-color: FF8E72;">
+            <TextField id="LogginUsername" fx:id="loginUsername" layoutX="223.0" layoutY="86.0" prefHeight="41.0" prefWidth="254.0" promptText="login" style="-fx-border-color: FF8E72;">
                <font>
                   <Font size="18.0" />
                </font></TextField>
-            <PasswordField id="LoginPassword" fx:id="LoginPassword" layoutX="223.0" layoutY="148.0" prefHeight="41.0" prefWidth="254.0" promptText="password" style="-fx-border-color: FF8E72;">
+            <PasswordField id="LoginPassword" fx:id="loginPassword" layoutX="223.0" layoutY="148.0" prefHeight="41.0" prefWidth="254.0" promptText="password" style="-fx-border-color: FF8E72;">
                <font>
                   <Font size="18.0" />
                </font></PasswordField>
-            <Button id="button" fx:id="BackToLoginPageButton" layoutX="378.0" layoutY="211.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" stylesheets="@style.css" text="Back" />
-            <Button id="button" fx:id="RegisterButton" layoutX="223.0" layoutY="211.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" stylesheets="@style.css" text="Sign Up" />
+            <Button id="button" fx:id="backToLoginPageButton" layoutX="378.0" layoutY="211.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" stylesheets="@Style.css" text="Back" />
+            <Button id="button" fx:id="registerButton" layoutX="223.0" layoutY="211.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" stylesheets="@Style.css" text="Sign Up" />
             <TextField id="name" fx:id="name" layoutX="223.0" layoutY="22.0" prefHeight="41.0" prefWidth="254.0" promptText="name" style="-fx-border-color: FF8E72;">
                <font>
                   <Font size="18.0" />

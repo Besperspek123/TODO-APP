@@ -1,12 +1,12 @@
 package com.example.controller;
 
-import com.example.Exceptions.EmptyCredentialsException;
-import com.example.Exceptions.UserNotFoundException;
-import com.example.Hibernate.HibernateSessionFactory;
-import com.example.ObjectsDataBase.User;
+import com.example.exceptions.EmptyCredentialsException;
+import com.example.exceptions.UserNotFoundException;
+import com.example.hibernate.HibernateSessionFactory;
+import com.example.objectsDataBase.User;
 import com.example.controller.constantsNotification.ErrorConstants;
 import com.example.controller.constantsNotification.SuccessfulConstants;
-import com.example.javafxFxmlLoader.SceneSwitcher;
+import com.example.javafxFxmlLoader.JavaFx;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -26,16 +26,16 @@ public class LoginController {
     }
 
     @FXML
-    private Button LoginButton;
+    private Button loginButton;
 
     @FXML
-    private PasswordField LoginPassword;
+    private PasswordField loginPassword;
 
     @FXML
-    private TextField LoginUsername;
+    private TextField loginUsername;
 
     @FXML
-    private Button SignUpButton;
+    private Button signUpButton;
 
     @FXML
     private Button clearDataAndUsersButton;
@@ -43,79 +43,22 @@ public class LoginController {
 
     @FXML
     void initialize() {
-
-
-
         setupLoginButton();
         setupSignUpButton();
         setupClearUsersAndTasksButton();
-
-
+        handleEnterPressKey();
     }
 
-    private void setupClearUsersAndTasksButton() {
-        clearDataAndUsersButton.setOnAction(actionEvent -> {
-
-
-            Session sessionDeleteAllUsers = null;
-
-            try {
-                sessionDeleteAllUsers = HibernateSessionFactory.getCurrentSessionUser();
-                sessionDeleteAllUsers.beginTransaction();
-                sessionDeleteAllUsers.createQuery("delete from User").executeUpdate();
-            } finally {
-                if (sessionDeleteAllUsers != null && sessionDeleteAllUsers.isOpen()) {
-                    sessionDeleteAllUsers.close();
-                }
-            }
-
-            Session sessionDeleteAllTaskFromAllUser = null;
-            Session sessionDeleteAllCompletedTaskFromAllUser = null;
-
-            try {
-                sessionDeleteAllTaskFromAllUser = HibernateSessionFactory.getCurrentSessionCurrentTask();
-                sessionDeleteAllTaskFromAllUser.beginTransaction();
-                sessionDeleteAllTaskFromAllUser.createQuery("delete from CurrentTask").executeUpdate();
-                sessionDeleteAllTaskFromAllUser.getTransaction().commit();
-
-                sessionDeleteAllCompletedTaskFromAllUser = HibernateSessionFactory.getCurrentSessionCompletedTask();
-                sessionDeleteAllCompletedTaskFromAllUser.beginTransaction();
-                sessionDeleteAllCompletedTaskFromAllUser.createQuery("delete from CompletedTask").executeUpdate();
-                sessionDeleteAllCompletedTaskFromAllUser.getTransaction().commit();
-
-                System.out.println("All users have been deleted");
-                SceneSwitcher.showInputSuccessfulNotification(SuccessfulConstants.SUCCESSFUL_DELETE_ALL_USER);
-
-            } finally {
-                if (sessionDeleteAllTaskFromAllUser != null && sessionDeleteAllUsers.isOpen()) {
-                    sessionDeleteAllTaskFromAllUser.close();
-                }if (sessionDeleteAllCompletedTaskFromAllUser != null && sessionDeleteAllCompletedTaskFromAllUser.isOpen()) {
-                    sessionDeleteAllCompletedTaskFromAllUser.close();
-                }
-            }
-
-        });
-    }
-
-    private void setupSignUpButton() {
-        SignUpButton.setOnAction(actionEvent -> {
-
-            SignUpButton.getScene().getWindow().hide();
-            SceneSwitcher.SceneSwitcher("/SignUp.fxml");
-
-        });
-
-    }
 
     private void setupLoginButton() {
-        LoginButton.setOnAction(actionEvent -> {
+        loginButton.setOnAction(actionEvent -> {
 
 
             Session sessionLoginUser = null;
 
             try {
 
-                if (LoginUsername.getText().isEmpty() || LoginPassword.getText().isEmpty()){
+                if (loginUsername.getText().isEmpty() || loginPassword.getText().isEmpty()) {
                     throw new EmptyCredentialsException("The user did not enter a username or password");
                 }
 
@@ -125,8 +68,8 @@ public class LoginController {
 
                 String sqlQuery = "from User where loginUsername =:login and loginPassword =:password";
                 Query checkUserQuery = sessionLoginUser.createQuery(sqlQuery);
-                checkUserQuery.setParameter("login", LoginUsername.getText());
-                checkUserQuery.setParameter("password", LoginPassword.getText());
+                checkUserQuery.setParameter("login", loginUsername.getText());
+                checkUserQuery.setParameter("password", loginPassword.getText());
 
                 List<User> usersForQueryList = checkUserQuery.getResultList();
 
@@ -134,21 +77,20 @@ public class LoginController {
 
                     currentLoginUser = usersForQueryList.get(0);
 
-                    LoginButton.getScene().getWindow().hide();
-                    SceneSwitcher.SceneSwitcher("/TaskList.fxml");
+                    loginButton.getScene().getWindow().hide();
+                    JavaFx.SceneSwitcher("/TaskList.fxml");
 
                 } else {
                     throw new UserNotFoundException("User not found");
                 }
             } catch (UserNotFoundException e) {
                 System.out.println(e.getMessage());
-                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_LOGIN_OR_PASSWORD_INCORRECT);
+                JavaFx.showInputErrorNotification(ErrorConstants.ERROR_LOGIN_OR_PASSWORD_INCORRECT);
 
-            }
-            catch (EmptyCredentialsException e){
+            } catch (EmptyCredentialsException e) {
                 System.out.println(e.getMessage());
-                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_LOGIN_OR_SIGNUP_EMPTY_LOGIN_OR_PASSWORD);
-            }finally {
+                JavaFx.showInputErrorNotification(ErrorConstants.ERROR_LOGIN_OR_PASSWORD_EMPTY);
+            } finally {
                 if (sessionLoginUser != null && sessionLoginUser.isOpen()) {
                     sessionLoginUser.close();
                     System.out.println("Session login user is closed");
@@ -157,19 +99,74 @@ public class LoginController {
 
 
         });
+    }
 
-        LoginPassword.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode()== KeyCode.ENTER){
-                LoginButton.fire();
+    private void setupClearUsersAndTasksButton() {
+        clearDataAndUsersButton.setOnAction(actionEvent -> deleteUsersAndTasksInDataBase());
+    }
+
+    private void setupSignUpButton() {
+        signUpButton.setOnAction(actionEvent -> {
+
+            signUpButton.getScene().getWindow().hide();
+            JavaFx.SceneSwitcher("/SignUp.fxml");
+
+        });
+
+    }
+
+
+    public void deleteUsersAndTasksInDataBase() {
+        Session sessionDeleteAllUsers = null;
+
+        try {
+            sessionDeleteAllUsers = HibernateSessionFactory.getCurrentSessionUser();
+            sessionDeleteAllUsers.beginTransaction();
+            sessionDeleteAllUsers.createQuery("delete from User").executeUpdate();
+        } finally {
+            if (sessionDeleteAllUsers != null && sessionDeleteAllUsers.isOpen()) {
+                sessionDeleteAllUsers.close();
+            }
+        }
+
+        Session sessionDeleteAllTaskFromAllUser = null;
+        Session sessionDeleteAllCompletedTaskFromAllUser = null;
+
+        try {
+            sessionDeleteAllTaskFromAllUser = HibernateSessionFactory.getCurrentSessionCurrentTask();
+            sessionDeleteAllTaskFromAllUser.beginTransaction();
+            sessionDeleteAllTaskFromAllUser.createQuery("delete from CurrentTask").executeUpdate();
+            sessionDeleteAllTaskFromAllUser.getTransaction().commit();
+
+            sessionDeleteAllCompletedTaskFromAllUser = HibernateSessionFactory.getCurrentSessionCompletedTask();
+            sessionDeleteAllCompletedTaskFromAllUser.beginTransaction();
+            sessionDeleteAllCompletedTaskFromAllUser.createQuery("delete from CompletedTask").executeUpdate();
+            sessionDeleteAllCompletedTaskFromAllUser.getTransaction().commit();
+
+            System.out.println("All users have been deleted");
+            JavaFx.showInputSuccessfulNotification(SuccessfulConstants.SUCCESSFUL_DELETE_ALL_USER);
+
+        } finally {
+            if (sessionDeleteAllTaskFromAllUser != null && sessionDeleteAllUsers.isOpen()) {
+                sessionDeleteAllTaskFromAllUser.close();
+            }
+            if (sessionDeleteAllCompletedTaskFromAllUser != null && sessionDeleteAllCompletedTaskFromAllUser.isOpen()) {
+                sessionDeleteAllCompletedTaskFromAllUser.close();
+            }
+        }
+    }
+
+    private void handleEnterPressKey() {
+        loginPassword.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                loginButton.fire();
             }
         });
 
-        LoginUsername.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode()== KeyCode.ENTER){
-                LoginButton.fire();
+        loginUsername.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                loginButton.fire();
             }
         });
-
-
     }
 }

@@ -1,4 +1,4 @@
-package com.example.ObjectsDataBase;
+package com.example.objectsDataBase;
 
 import javax.persistence.*;
 

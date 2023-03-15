@@ -1,13 +1,13 @@
 package com.example.controller;
 
-import com.example.Exceptions.EmptyCredentialsException;
-import com.example.Exceptions.InvalidCharactersException;
-import com.example.Exceptions.LoginOrPasswordTooLongException;
-import com.example.Hibernate.HibernateSessionFactory;
-import com.example.ObjectsDataBase.User;
+import com.example.exceptions.EmptyCredentialsException;
+import com.example.exceptions.InvalidCharactersException;
+import com.example.exceptions.LoginOrPasswordTooLongException;
+import com.example.hibernate.HibernateSessionFactory;
+import com.example.objectsDataBase.User;
 import com.example.controller.constantsNotification.ErrorConstants;
 import com.example.controller.constantsNotification.SuccessfulConstants;
-import com.example.javafxFxmlLoader.SceneSwitcher;
+import com.example.javafxFxmlLoader.JavaFx;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -21,16 +21,16 @@ import java.util.List;
 public class SignUpController {
 
     @FXML
-    private Button BackToLoginPageButton;
+    private Button backToLoginPageButton;
 
     @FXML
-    private PasswordField LoginPassword;
+    private PasswordField loginPassword;
 
     @FXML
-    private TextField LoginUsername;
+    private TextField loginUsername;
 
     @FXML
-    private Button RegisterButton;
+    private Button registerButton;
 
     @FXML
     private TextField name;
@@ -38,77 +38,66 @@ public class SignUpController {
     @FXML
     void initialize() {
         setupBackToLoginPageButton();
-       setupRegisterButton();
-
-
+        setupRegisterButton();
+        handleEnterPressKey();
 }
-    public void setupBackToLoginPageButton (){
-        BackToLoginPageButton.setOnAction(actionEvent -> {
 
-            BackToLoginPageButton.getScene().getWindow().hide();
-            SceneSwitcher.SceneSwitcher("/Login.fxml");
+
+    public void setupBackToLoginPageButton (){
+        backToLoginPageButton.setOnAction(actionEvent -> {
+
+            backToLoginPageButton.getScene().getWindow().hide();
+            JavaFx.SceneSwitcher("/Login.fxml");
 
         });
     }
     public void setupRegisterButton(){
-        RegisterButton.setOnAction(actionEvent -> {
+        registerButton.setOnAction(actionEvent -> {
 
             try {
-                if(LoginUsername.getText().length() > 25 || LoginPassword.getText().length() > 20){
+                if(loginUsername.getText().length() > 25 || loginPassword.getText().length() > 20){
                     throw new LoginOrPasswordTooLongException("User are trying to enter " +
                             "a username or password that is too long. " +
                             "The login must not be longer than 25 characters, " +
                             "and the password must not be longer than 25 characters ");
                 }
-                if (LoginUsername.getText().isEmpty() || LoginPassword.getText().isEmpty()){
+                if (loginUsername.getText().isEmpty() || loginPassword.getText().isEmpty()){
                     throw new EmptyCredentialsException("The user did not enter a username or password");
                 }
-                if (LoginUsername.getText().matches(".*[а-яА-Я].*") || LoginPassword.getText().matches(".*[а-яА-Я].*")){
+
+                //Regex checking russian characters in input field login and password
+                if (loginUsername.getText().matches(".*[а-яА-Я].*") || loginPassword.getText().matches(".*[а-яА-Я].*")){
                     throw new InvalidCharactersException("The user is trying to enter invalid characters");
                 }
 
-                if (!isUserExist()){
+                if (!checkUserCredentials()){
                     registerUser();
-                    RegisterButton.getScene().getWindow().hide();
-                    SceneSwitcher.SceneSwitcher("/Login.fxml");
-                    SceneSwitcher.showInputSuccessfulNotification(SuccessfulConstants.SUCCESSFUL_SIGN_UP);
+                    registerButton.getScene().getWindow().hide();
+                    JavaFx.SceneSwitcher("/Login.fxml");
+                    JavaFx.showInputSuccessfulNotification(SuccessfulConstants.SUCCESSFUL_SIGN_UP);
                 }
                 else {
-                    SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_SIGN_UP_ACCOUNT_ALREADY_EXIST);
+                    JavaFx.showInputErrorNotification(ErrorConstants.ERROR_SIGN_UP_ACCOUNT_ALREADY_EXIST);
                 }
             }
             catch (EmptyCredentialsException e){
                 System.out.println(e.getMessage());
-                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_LOGIN_OR_SIGNUP_EMPTY_LOGIN_OR_PASSWORD);
+                JavaFx.showInputErrorNotification(ErrorConstants.ERROR_LOGIN_OR_PASSWORD_EMPTY);
             }
             catch (InvalidCharactersException e){
                 System.out.println(e.getMessage());
-                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_SIGN_UP_INVALID_CHARACTERS);
+                JavaFx.showInputErrorNotification(ErrorConstants.ERROR_SIGN_UP_INVALID_CHARACTERS);
             }
             catch (LoginOrPasswordTooLongException e){
                 System.out.println(e.getMessage());
-                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_SIGN_UP_TO_LOONG_CHARACTERS);
+                JavaFx.showInputErrorNotification(ErrorConstants.ERROR_SIGN_UP_TO_LOONG_CHARACTERS);
             }
         });
 
-        LoginPassword.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode()== KeyCode.ENTER){
-                RegisterButton.fire();
-            }
-        });
-        LoginUsername.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode()== KeyCode.ENTER){
-                RegisterButton.fire();
-            }
-        });
-        name.setOnKeyPressed(keyEvent -> {
-            if (keyEvent.getCode()== KeyCode.ENTER){
-                RegisterButton.fire();
-            }
-        });
+
     }
 
-    public boolean isUserExist(){
+    public boolean checkUserCredentials(){
         Session sessionIsUserExist = null;
         List<User> usersForQuery;
         try {
@@ -117,7 +106,7 @@ public class SignUpController {
             System.out.println("Session check user in database is open");
             String sqlQuery = "from User where loginUsername =:login";
             Query checkUserQuery = sessionIsUserExist.createQuery(sqlQuery);
-            checkUserQuery.setParameter("login", LoginUsername.getText());
+            checkUserQuery.setParameter("login", loginUsername.getText());
 
            usersForQuery = checkUserQuery.getResultList();
         }
@@ -136,7 +125,7 @@ public class SignUpController {
             sessionSaveUser = HibernateSessionFactory.getCurrentSessionUser();
             sessionSaveUser.beginTransaction();
             System.out.println("Session register user in database is open");
-            User user = new User(LoginUsername.getText(),LoginPassword.getText());
+            User user = new User(loginUsername.getText(), loginPassword.getText());
             sessionSaveUser.save(user);
             sessionSaveUser.getTransaction().commit();
         }
@@ -147,6 +136,24 @@ public class SignUpController {
             }
         }
 
+    }
+
+    private void handleEnterPressKey() {
+        loginPassword.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode()== KeyCode.ENTER){
+                registerButton.fire();
+            }
+        });
+        loginUsername.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode()== KeyCode.ENTER){
+                registerButton.fire();
+            }
+        });
+        name.setOnKeyPressed(keyEvent -> {
+            if (keyEvent.getCode()== KeyCode.ENTER){
+                registerButton.fire();
+            }
+        });
     }
 
 }
