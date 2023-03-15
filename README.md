@@ -29,11 +29,12 @@ This is a To Do List application that allows you to add the necessary tasks to t
 
 ## How Use
 
-You can clone this repository and run it in your IDE (Inteljidea or Netbins) or download installator for this application follow the link bellow.
+You can clone this repository and run it in your IDE (Inteljidea or Netbins) or download rar archiv with this application follow the link bellow.
+After downloading you must open ToDoList.exe for run application
 
 ## Download Application
 
-- Link for Download: [Yandex.Disk](https://disk.yandex.ru/d/4bz7tVizqqhXlg) | [Mail.Ru](https://cloud.mail.ru/public/nBKA/ujDuXjQ5a)
+- Link for Download: [Yandex.Disk](https://disk.yandex.ru/d/Ecyipr5Pq75SWw)
 
 ## License
 
