@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.javafxFxmlLoader.SceneSwitcher;
+import com.example.javafxFxmlLoader.JavaFx;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -16,7 +16,7 @@ public class Main extends Application{
     @Override
     public void start(Stage stage) {
 
-        Stage LoginStage = SceneSwitcher.SceneSwitcher("/Login.fxml");
+        Stage LoginStage = JavaFx.SceneSwitcher("/Login.fxml");
 
 
 

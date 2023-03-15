@@ -1,8 +1,8 @@
-package com.example.Hibernate;
+package com.example.hibernate;
 
-import com.example.ObjectsDataBase.CompletedTask;
-import com.example.ObjectsDataBase.CurrentTask;
-import com.example.ObjectsDataBase.User;
+import com.example.objectsDataBase.CompletedTask;
+import com.example.objectsDataBase.CurrentTask;
+import com.example.objectsDataBase.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -11,9 +11,7 @@ import org.hibernate.cfg.Configuration;
 public class HibernateSessionFactory {
 
     private static final SessionFactory sessionFactoryCurrentTaskClass = getCurrentFactoryCurrentTask();
-
     private static final SessionFactory sessionFactoryUserClass = getCurrentFactoryUser();
-
     private static final SessionFactory sessionFactoryCompletedTaskClass = getCurrentFactoryCompletedTask();
 
     private static SessionFactory getCurrentFactoryCompletedTask() {
@@ -36,17 +34,6 @@ public class HibernateSessionFactory {
         else currentFactory = sessionFactoryCurrentTaskClass;
         return currentFactory;
     }
-
-    public static Session getCurrentSessionCurrentTask() {
-        return getCurrentFactoryCurrentTask().openSession();
-    }
-
-    public static Session getCurrentSessionCompletedTask() {
-        return getCurrentFactoryCompletedTask().openSession();
-    }
-
-
-
     private static SessionFactory getCurrentFactoryUser() {
         SessionFactory currentFactory;
         if (sessionFactoryUserClass == null){
@@ -55,6 +42,14 @@ public class HibernateSessionFactory {
         }
         else currentFactory = sessionFactoryUserClass;
         return currentFactory;
+    }
+
+    public static Session getCurrentSessionCurrentTask() {
+        return getCurrentFactoryCurrentTask().openSession();
+    }
+
+    public static Session getCurrentSessionCompletedTask() {
+        return getCurrentFactoryCompletedTask().openSession();
     }
 
     public static Session getCurrentSessionUser() {

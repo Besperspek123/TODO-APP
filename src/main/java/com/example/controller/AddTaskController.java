@@ -1,10 +1,10 @@
 package com.example.controller;
 
-import com.example.Exceptions.EmptyTaskException;
-import com.example.Hibernate.HibernateSessionFactory;
-import com.example.ObjectsDataBase.CurrentTask;
+import com.example.exceptions.EmptyTaskException;
+import com.example.hibernate.HibernateSessionFactory;
+import com.example.objectsDataBase.CurrentTask;
 import com.example.controller.constantsNotification.ErrorConstants;
-import com.example.javafxFxmlLoader.SceneSwitcher;
+import com.example.javafxFxmlLoader.JavaFx;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -14,10 +14,10 @@ import org.hibernate.Session;
 public class AddTaskController {
 
     @FXML
-    private TextField DescriptionTask;
+    private TextField descriptionTask;
 
     @FXML
-    private TextField Task;
+    private TextField task;
 
     @FXML
     private Button buttonSaveTask;
@@ -29,14 +29,12 @@ public class AddTaskController {
     void initialize() {
         setupAddTaskButton();
         setupBackButton();
+        handleEnterPressKey();
     }
 
-    private void setupBackButton() {
-        buttonBack.setOnAction(actionEvent -> {
-            buttonBack.getScene().getWindow().hide();
-            SceneSwitcher.SceneSwitcher("/TaskList.fxml");
-        });
-    }
+
+
+
 
     public void setupAddTaskButton(){
         buttonSaveTask.setOnAction(actionEvent -> {
@@ -45,39 +43,46 @@ public class AddTaskController {
                 sessionSaveNewTask = HibernateSessionFactory.getCurrentSessionCurrentTask();
                 sessionSaveNewTask.beginTransaction();
 
-                CurrentTask currentTask = new CurrentTask(Task.getText(),
-                        DescriptionTask.getText(),
+                CurrentTask currentTask = new CurrentTask(task.getText(),
+                        descriptionTask.getText(),
                         LoginController.getCurrentUserLogin());
 
-                if (Task.getText().isEmpty()){
+                if (task.getText().isEmpty()){
                     throw new EmptyTaskException("The User is trying to save an empty Task");
                 }
                 sessionSaveNewTask.save(currentTask);
                 sessionSaveNewTask.getTransaction().commit();
                 sessionSaveNewTask.close();
                 buttonSaveTask.getScene().getWindow().hide();
-                SceneSwitcher.SceneSwitcher("/TaskList.fxml");
+                JavaFx.SceneSwitcher("/TaskList.fxml");
             }
             catch (EmptyTaskException e){
                 System.out.println(e.getMessage());
-                SceneSwitcher.showInputErrorNotification(ErrorConstants.ERROR_SAVE_EMPTY_TASK);
+                JavaFx.showInputErrorNotification(ErrorConstants.ERROR_SAVE_EMPTY_TASK);
             }
             finally {
                 if (sessionSaveNewTask != null && sessionSaveNewTask.isOpen()) {
                     sessionSaveNewTask.close();
                 }
             }
-
-
         });
+    }
 
-        Task.setOnKeyPressed(keyEvent -> {
+    private void setupBackButton() {
+        buttonBack.setOnAction(actionEvent -> {
+            buttonBack.getScene().getWindow().hide();
+            JavaFx.SceneSwitcher("/TaskList.fxml");
+        });
+    }
+
+    private void handleEnterPressKey() {
+        task.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode()== KeyCode.ENTER){
                 buttonSaveTask.fire();
             }
         });
 
-        DescriptionTask.setOnKeyPressed(keyEvent -> {
+        descriptionTask.setOnKeyPressed(keyEvent -> {
             if (keyEvent.getCode()== KeyCode.ENTER){
                 buttonSaveTask.fire();
             }

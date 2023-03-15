@@ -15,20 +15,20 @@
             <Image url="@assets/login1.png" />
          </image>
       </ImageView>
-      <Button id="button" fx:id="SignUpButton" layoutX="587.0" layoutY="18.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" stylesheets="@style.css" text="Sign Up" />
+      <Button id="button" fx:id="signUpButton" layoutX="587.0" layoutY="18.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" stylesheets="@Style.css" text="Sign Up" />
       <AnchorPane layoutY="69.0" prefHeight="267.0" prefWidth="700.0" style="-fx-background-color: ffffff;">
          <children>
-            <TextField id="LogginUsername" fx:id="LoginUsername" layoutX="223.0" layoutY="51.0" prefHeight="41.0" prefWidth="254.0" promptText="login" style="-fx-border-color: FF8E72;">
+            <TextField id="LogginUsername" fx:id="loginUsername" layoutX="223.0" layoutY="51.0" prefHeight="41.0" prefWidth="254.0" promptText="login" style="-fx-border-color: FF8E72;">
                <font>
                   <Font size="18.0" />
                </font></TextField>
-            <PasswordField id="LoginPassword" fx:id="LoginPassword" layoutX="223.0" layoutY="119.0" prefHeight="41.0" prefWidth="254.0" promptText="password" style="-fx-border-color: FF8E72;">
+            <PasswordField id="LoginPassword" fx:id="loginPassword" layoutX="223.0" layoutY="119.0" prefHeight="41.0" prefWidth="254.0" promptText="password" style="-fx-border-color: FF8E72;">
                <font>
                   <Font size="18.0" />
                </font></PasswordField>
-            <Button id="button" fx:id="LoginButton" layoutX="288.0" layoutY="183.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="124.0" stylesheets="@style.css" text="Login" />
+            <Button id="button" fx:id="loginButton" layoutX="288.0" layoutY="183.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="124.0" stylesheets="@Style.css" text="Login" />
          </children>
       </AnchorPane>
-      <Button id="button" fx:id="clearDataAndUsersButton" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" stylesheets="@style.css" text="Clear Data and Users" />
+      <Button id="button" fx:id="clearDataAndUsersButton" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" stylesheets="@Style.css" text="Clear Data and Users" />
    </children>
 </AnchorPane>

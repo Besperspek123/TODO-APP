@@ -2,7 +2,7 @@ package com.example.controller.constantsNotification;
 
 public class ErrorConstants {
     public static final String ERROR_LOGIN_OR_PASSWORD_INCORRECT = "LOGIN OR PASSWORD INCORRECT";
-    public static final String ERROR_LOGIN_OR_SIGNUP_EMPTY_LOGIN_OR_PASSWORD = "YOU ARE TRYING TO ENTER AN EMPTY PASSWORD OR LOGIN";
+    public static final String ERROR_LOGIN_OR_PASSWORD_EMPTY = "YOU ARE TRYING TO ENTER AN EMPTY PASSWORD OR LOGIN";
     public static final String ERROR_SAVE_EMPTY_TASK = "THE TASK CANNOT BE EMPTY";
     public static final String ERROR_SIGN_UP_ACCOUNT_ALREADY_EXIST = "THIS ACCOUNT IS ALREADY EXIST";
     public static final String ERROR_SIGN_UP_INVALID_CHARACTERS = "YOU ARE TRYING TO ENTER " +
