@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.hibernate.HibernateSessionFactory;
-import com.example.objectsDataBase.CompletedTask;
-import com.example.objectsDataBase.CurrentTask;
+import com.example.entitiesDatabase.CompletedTask;
+import com.example.entitiesDatabase.CurrentTask;
 import com.example.javafxFxmlLoader.JavaFx;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -247,12 +247,12 @@ public class TaskListController {
     }
 
 
-    public void switchToAddTaskStage() {
+    private void switchToAddTaskStage() {
         addFirstTaskButton.getScene().getWindow().hide();
         JavaFx.SceneSwitcher("/AddTask.fxml");
     }
 
-    public void removeTask() {
+    private void removeTask() {
 
         Session sessionCompletedOrCurrentRemoveTask = null;
         try {
@@ -303,7 +303,7 @@ public class TaskListController {
 
     }
 
-    public void completedTask() {
+    private void completedTask() {
 
         Session sessionGetAndDeleteCurrentTaskForAddToCompletedTasks = null;
         Session sessionAddCompletedTask = null;
@@ -354,7 +354,7 @@ public class TaskListController {
 
     }
 
-    public String getDescriptionTaskText() {
+    private String getDescriptionTaskText() {
 
         Session sessionGetDescriptionTask = null;
         try {

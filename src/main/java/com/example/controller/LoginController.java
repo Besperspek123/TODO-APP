@@ -3,7 +3,7 @@ package com.example.controller;
 import com.example.exceptions.EmptyCredentialsException;
 import com.example.exceptions.UserNotFoundException;
 import com.example.hibernate.HibernateSessionFactory;
-import com.example.objectsDataBase.User;
+import com.example.entitiesDatabase.User;
 import com.example.controller.constantsNotification.ErrorConstants;
 import com.example.controller.constantsNotification.SuccessfulConstants;
 import com.example.javafxFxmlLoader.JavaFx;
@@ -116,7 +116,7 @@ public class LoginController {
     }
 
 
-    public void deleteUsersAndTasksInDataBase() {
+    private void deleteUsersAndTasksInDataBase() {
         Session sessionDeleteAllUsers = null;
 
         try {

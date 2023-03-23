@@ -1,10 +1,10 @@
-package com.example.objectsDataBase;
+package com.example.entitiesDatabase;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tasks")
-public class CurrentTask {
+@Table(name = "completedtasks")
+public class CompletedTask {
     @Column(name = "task")
     private String task;
 
@@ -19,10 +19,10 @@ public class CurrentTask {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public CurrentTask() {
+    public CompletedTask() {
     }
 
-    public CurrentTask(String task, String description, String  user) {
+    public CompletedTask(String task, String description, String  user) {
         this.task = task;
         this.description = description;
         this.user = user;
