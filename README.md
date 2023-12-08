@@ -25,7 +25,7 @@ This is a To Do List application that allows you to add the necessary tasks to t
 
 ## Developers
 
-- [Nosov Daniil](https://github.com/Besperspek123)
+- (https://github.com/Besperspek123)
 
 ## How Use
 
